@@ -24,14 +24,13 @@ public class UnirSubirTxt {
 		
 		listaCarpetas=carpetaUtils.obtenerCarpetasRuta(ruta+"/"+"src");
 		
-		for (String carpetas : listaCarpetas) {
-			System.out.println("Lista de carpetas : "+carpetas);
-			listadoArchivos = archivoUtils.obtenerListadoDeNombresDeArchivosEnUnaCarpeta(ruta+"/"+"src/"+carpetas);
+		
+			listadoArchivos = archivoUtils.obtenerListadoDeNombresDeArchivosEnUnDirectorio(ruta);
 			for (String archivo : listadoArchivos) {
 				System.out.println("****************************************************************************************************************");
 				System.out.println("Lista de archivos : "+archivo);
 				listarClasesMetodosConNumeroLineasCodigo.listarClasesMetodos(ruta, archivo);
-			}
+			
 		}
 	}
 }

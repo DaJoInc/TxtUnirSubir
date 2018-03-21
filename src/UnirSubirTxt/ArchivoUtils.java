@@ -8,10 +8,39 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class ArchivoUtils {
-	
+	public List<String> obtenerListadoDeNombresDeArchivosEnUnDirectorio(String ruta){
+		List<String> listaNombresArchivos = new ArrayList<String>();
+		File directorio = null;
+		directorio = new File(ruta); //directorio raiz
+		LinkedList<File> cola = new LinkedList<File>(); //esta lista da la posibilidad de usarla como una cola
+		cola.addLast(directorio);
+		
+		   while (!cola.isEmpty()) {
+				directorio = (File) cola.pollFirst();//para obtener y eliminar el primer archivo
+			
+				if (directorio.isDirectory()) {
+					File[] listaArchivos = directorio.listFiles();
+			
+					if (listaArchivos != null) { //cuando encuentra la carpeta SystemVolumeInformation listfiles queda null
+						for (File subdir : listaArchivos) { //para cada archivo de la lista
+							cola.addLast(subdir);//lo agregas a la cola
+							String files = subdir.getPath();
+								if (files.toLowerCase().contains(".java")) {	
+									listaNombresArchivos.add(files);
+								}
+						}
+					}
+				}
+			
+		   }
+			
+			return listaNombresArchivos;
+}
+		   
    /**
     * ---------------------------------------------
     * obtenerListadoDeNombresDeArchivosEnUnaCarpeta
